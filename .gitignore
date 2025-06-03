@@ -1,0 +1,50 @@
+# Java
+*.class
+*.log
+
+# Maven
+target/
+!.mvn/wrapper/maven-wrapper.jar
+.mvn/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+
+# IntelliJ
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# VS Code (si usás)
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Environment
+.env
+.env.*
+
+# Docker
+*.pid
+*.seed
+*.pid.lock
+
+# Spring Boot
+*.db
+*.h2.db
+*.mv.db
+*.trace.db
+spring.log
+
+# Other
+*.bak
+*.tmp
