@@ -1,0 +1,12 @@
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: kahoot_db
+      username: root
+      password: pass
+      auto-index-creation: true
+      authentication-database: admin
+server:
+  port: 8082

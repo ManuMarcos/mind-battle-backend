@@ -1,0 +1,46 @@
+server:
+  port: 8080
+spring:
+  cloud:
+    gateway:
+      default-filters:
+        - TokenRelay
+      routes:
+        - id: oauth-service
+          uri: lb://oauth-service
+          predicates:
+            - Path=/api/security/**
+          filters:
+            - StripPrefix=2
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/api/users/**
+          filters:
+            - StripPrefix=2
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://127.0.0.1:9100 #URL del authorization server
+      client:
+        registration:
+          client-app:
+            provider: spring
+            client-id: gateway-app
+            client-secret: 12345
+            authorization-grant-type: authorization_code
+            redirect-uri: http://127.0.0.1:8080/login/oauth2/code/client-app
+            scope:
+              - openid
+              - profile
+            client-name: client-app
+        provider:
+          spring:
+            issuer-uri: http://127.0.0.1:9100
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
