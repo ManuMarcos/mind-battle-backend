@@ -1,0 +1,71 @@
+{
+    "_id" : "gamesession_id",
+    "pin" : 12432,
+    "status" : "IN_PROGRESS",
+    "createdBy" : "user_id",
+    "currentQuestionIndex" : 0,
+    "questionStartTime" : "2025-05-21T22:05:00Z",
+    "quiz" : {
+        "title" : "Patron adapter",
+        "description" : "Cuestionario sobre el patron adapter",
+        "createdBy" : "userId",
+        "questions" : [
+            {
+                "text" : "Que tipo de patron es Strategy",
+                "timeLimitSeconds" : 30,
+                "options" : [
+                    {
+                        "text" : "Creacional",
+                        "isCorrect" : true
+                    },
+                    {
+                        "text" : "Comportamiento",
+                        "isCorrect" : true
+                    },
+                    {
+                        "text" : "Estructural",
+                        "isCorrect" : false
+                    },
+                    {
+                        "text" : "Todas las anteriores",
+                        "isCorrect" : false
+                    }
+                ]
+            }
+        ]   
+    },
+    "players" : [
+        {
+            "user" : "user_id",
+            "score" : 10,
+            "responses" : [
+                {
+                    "text" : "Que tipo de patron es Strategy",
+                    "selectedOptions" : [
+                        {
+                            "text" : "Comportamiento",
+                            "isCorrect" : true
+                        }
+                    ]
+                }
+            ],
+            "position" : 1
+        },
+        {
+            "user" : "user_id2",
+            "score" : 5,
+            "responses" : [
+                {
+                    "text" : "Que tipo de patron es Strategy",
+                    "selectedOptions" : [
+                        {
+                            "text" : "Estructural",
+                            "isCorrect" : false
+                        }
+                    ]
+                }
+            ],
+            "position" : 2
+        }
+    ]
+}

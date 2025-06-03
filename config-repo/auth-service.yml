@@ -11,3 +11,8 @@ logging:
     org:
       springframework:
         security: TRACE
+
+spring:
+  config:
+    import:
+      - "shared-config.yml"

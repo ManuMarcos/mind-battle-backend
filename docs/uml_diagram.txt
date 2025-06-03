@@ -1,0 +1,80 @@
+@startuml
+class User{
+- email : String
+- username : String
+- password: String
+}
+
+class Quiz{
+- title : String
+- description : String
+- createdBy : User
+- questions : List<Question>
+- isPublic : boolean
+}
+
+class Question{
+- text : String
+- timeLimitSeconds : Long
+- options : List<Option>
+}
+
+class Option{
+- text : String
+- isCorrect : boolean
+}
+
+class GameSession{
+- status : GameSessionStatus
+- pin : Long
+- createdBy : User
+- quiz : Quiz
+- players : List<PlayerSession>
+- startTime : LocalDateTime
+- endTime : LocalDateTime
+}
+
+class GameQuestion{
+- question : Question
+- gameSession : GameSession
+- order : int
+- startTime : LocalDateTime
+- endTime : LocalDateTime
+- isActive : boolean
+}
+
+class PlayerSession{
+- user : User
+- gameSession : GameSession
+- score : int
+- responses : List<PlayerAnswer>
+- position : int
+}
+
+class PlayerAnswer{
+- playerSession : PlayerSession
+- question : GameQuestion
+- selectedOptions : List<Option>
+- isCorrect : boolean
+- answerTime : LocalDateTime
+}
+
+enum GameSessionStatus {
+CREATED
+WAITING_FOR_PLAYERS
+IN_PROGRESS
+FINISHED
+}
+
+
+Quiz "1" *-- "*" Question
+Question "1" *-- "*" Option
+GameSession -- Quiz
+PlayerSession *-- PlayerAnswer
+GameSession *-- PlayerSession
+User "1" -- "*" GameSession
+Quiz "*" -- "1" User
+GameSession .. GameSessionStatus
+GameSession *-- GameQuestion
+GameQuestion --> Question
+@enduml

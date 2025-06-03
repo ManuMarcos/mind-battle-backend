@@ -1,0 +1,29 @@
+{
+    "title" : "Patron adapter",
+    "description" : "Cuestionario sobre el patron adapter",
+    "createdBy" : "userId",
+    "questions" : [
+        {
+            "text" : "Que tipo de patron es Strategy",
+            "timeLimitSeconds" : 30,
+            "options" : [
+                {
+                    "text" : "Creacional",
+                    "isCorrect" : true
+                },
+                {
+                    "text" : "Comportamiento",
+                    "isCorrect" : true
+                },
+                {
+                    "text" : "Estructural",
+                    "isCorrect" : false
+                },
+                {
+                    "text" : "Todas las anteriores",
+                    "isCorrect" : false
+                }
+            ]
+        }
+    ]   
+}
