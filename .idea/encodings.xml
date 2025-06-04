@@ -6,6 +6,8 @@
     <file url="file://$PROJECT_DIR$/gateway-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/microservices/auth-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/microservices/common/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microservices/game-session-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microservices/quiz-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/microservices/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/microservices/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/microservices/user-service/src/main/java" charset="UTF-8" />

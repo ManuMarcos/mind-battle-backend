@@ -35,7 +35,7 @@ class GameSession{
 }
 
 class GameQuestion{
-- question : Question
+- embeddedQuestion : Question
 - gameSession : GameSession
 - order : int
 - startTime : LocalDateTime
@@ -53,7 +53,7 @@ class PlayerSession{
 
 class PlayerAnswer{
 - playerSession : PlayerSession
-- question : GameQuestion
+- embeddedQuestion : GameQuestion
 - selectedOptions : List<Option>
 - isCorrect : boolean
 - answerTime : LocalDateTime

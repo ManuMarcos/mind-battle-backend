@@ -1,11 +1,11 @@
 package ar.com.manumarcos.kahootclone.microservices.quiz_service.mapper;
 
-import ar.com.manumarcos.kahootclone.microservices.quiz_service.dto.OptionDTO;
-import ar.com.manumarcos.kahootclone.microservices.quiz_service.model.Option;
+import ar.com.manumarcos.kahootclone.microservices.quiz_service.dto.request.OptionDTO;
+import ar.com.manumarcos.kahootclone.microservices.quiz_service.model.EmbeddedOption;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface IOptionMapper {
-    Option toEntity(OptionDTO optionDTO);
-    OptionDTO toDTO(Option option);
+    EmbeddedOption toEntity(OptionDTO optionDTO);
+    OptionDTO toDTO(EmbeddedOption embeddedOption);
 }

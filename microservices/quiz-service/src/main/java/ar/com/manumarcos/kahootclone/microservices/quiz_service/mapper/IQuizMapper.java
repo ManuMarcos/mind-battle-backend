@@ -1,11 +1,12 @@
 package ar.com.manumarcos.kahootclone.microservices.quiz_service.mapper;
 
-import ar.com.manumarcos.kahootclone.microservices.quiz_service.dto.QuizDTO;
+import ar.com.manumarcos.kahootclone.microservices.quiz_service.dto.request.QuizRequestDTO;
 import ar.com.manumarcos.kahootclone.microservices.quiz_service.model.Quiz;
+import ar.com.manumarcos.microservices.commons.dto.quiz.QuizResponseDTO;
 import org.mapstruct.Mapper;
 
-@Mapper(componentModel = "spring", uses = {IQuestionMapper.class, IOptionMapper.class})
+@Mapper(componentModel = "spring", uses = {IQuestionMapper.class})
 public interface IQuizMapper {
-    Quiz toEntity(QuizDTO quizDTO);
-    QuizDTO toDTO(Quiz quiz);
+    Quiz toEntity(QuizRequestDTO quizRequestDTO);
+    QuizResponseDTO toDTO(Quiz quiz);
 }

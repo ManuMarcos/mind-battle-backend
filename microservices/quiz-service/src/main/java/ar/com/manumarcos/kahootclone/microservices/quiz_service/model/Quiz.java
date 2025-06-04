@@ -20,6 +20,6 @@ public class Quiz {
 
     private String createdBy;
 
-    private List<Question> questions;
+    private List<EmbeddedQuestion> questions;
 
 }

@@ -13,6 +13,14 @@ spring:
           uri: lb://user-service
           predicates:
             - Path=/api/users/**
+        - id: quiz-service
+          uri: lb://quiz-service
+          predicates:
+            - Path=/api/quizzes/**
+        - id: game-session-service
+          uri: lb://game-session-service
+          predicates:
+            - Path=/api/game-sessions/**
   config:
     import:
       - "shared-config.yml"

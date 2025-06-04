@@ -1,9 +1,9 @@
 package ar.com.manumarcos.kahootclone.user.controller;
 
-import ar.com.manumarcos.kahootclone.user.dto.UserInternalResponseDTO;
-import ar.com.manumarcos.kahootclone.user.dto.UserRequestDTO;
-import ar.com.manumarcos.kahootclone.user.dto.UserResponseDTO;
+import ar.com.manumarcos.kahootclone.user.dto.request.UserRequestDTO;
 import ar.com.manumarcos.kahootclone.user.service.IUserService;
+import ar.com.manumarcos.microservices.commons.dto.user.UserInternalResponseDTO;
+import ar.com.manumarcos.microservices.commons.dto.user.UserResponseDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

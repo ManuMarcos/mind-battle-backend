@@ -19,6 +19,8 @@
 		<module>user-service</module>
 		<module>common</module>
 		<module>auth-service</module>
+		<module>quiz-service</module>
+		<module>game-session-service</module>
 	</modules>
 	<properties>
 		<spring-cloud.version>2025.0.0</spring-cloud.version>

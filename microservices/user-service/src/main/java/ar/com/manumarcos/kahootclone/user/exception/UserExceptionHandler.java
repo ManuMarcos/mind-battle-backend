@@ -1,7 +1,7 @@
 package ar.com.manumarcos.kahootclone.user.exception;
 
-import ar.com.manumarcos.microservices.common_exceptions.ErrorResponse;
-import ar.com.manumarcos.microservices.common_exceptions.GlobalExceptionHandler;
+import ar.com.manumarcos.microservices.commons.exception.ErrorResponse;
+import ar.com.manumarcos.microservices.commons.exception.GlobalExceptionHandler;
 import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

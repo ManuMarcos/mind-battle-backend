@@ -1,12 +1,7 @@
 spring:
   data:
     mongodb:
-      host: localhost
-      port: 27017
-      database: kahoot_db
-      username: root
-      password: pass
+      uri: mongodb://root:pass@localhost:27017/user-db?authSource=admin
       auto-index-creation: true
-      authentication-database: admin
 server:
   port: 8082

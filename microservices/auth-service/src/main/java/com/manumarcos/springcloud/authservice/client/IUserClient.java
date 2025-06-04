@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(name = "user-service")
+@FeignClient(name = "user-service", path = "/api/users")
 public interface IUserClient {
 
-    @GetMapping("/api/users/internal")
+    @GetMapping("/internal")
     UserResponseDTO getUserByUsername(@RequestParam String username);
 
-    @PostMapping("/api/users")
+    @PostMapping
     UserResponseDTO create(@RequestBody RegisterRequestDTO registerRequestDTO);
 }

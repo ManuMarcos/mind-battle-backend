@@ -1,11 +1,12 @@
 package ar.com.manumarcos.kahootclone.microservices.quiz_service.service.impl;
 
-import ar.com.manumarcos.kahootclone.microservices.quiz_service.dto.QuizDTO;
+import ar.com.manumarcos.kahootclone.microservices.quiz_service.dto.request.QuizRequestDTO;
 import ar.com.manumarcos.kahootclone.microservices.quiz_service.exception.QuizNotFoundException;
 import ar.com.manumarcos.kahootclone.microservices.quiz_service.mapper.IQuizMapper;
 import ar.com.manumarcos.kahootclone.microservices.quiz_service.model.Quiz;
 import ar.com.manumarcos.kahootclone.microservices.quiz_service.repository.IQuizRepository;
 import ar.com.manumarcos.kahootclone.microservices.quiz_service.service.IQuizService;
+import ar.com.manumarcos.microservices.commons.dto.quiz.QuizResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,13 +22,13 @@ public class QuizServiceImpl implements IQuizService {
     private final IQuizMapper quizMapper;
 
     @Override
-    public Page<QuizDTO> getAll(Pageable pageable) {
+    public Page<QuizResponseDTO> getAll(Pageable pageable) {
         Page<Quiz> quizzes = quizRepository.findAll(pageable);
         return quizzes.map(quizMapper::toDTO);
     }
 
     @Override
-    public QuizDTO findById(String quizID) {
+    public QuizResponseDTO findById(String quizID) {
         Quiz quiz = quizRepository.findById(quizID).orElseThrow(
                 () -> new QuizNotFoundException(quizID)
         );
@@ -35,8 +36,8 @@ public class QuizServiceImpl implements IQuizService {
     }
 
     @Override
-    public void save(QuizDTO quizDTO) {
-        Quiz quiz = quizMapper.toEntity(quizDTO);
+    public void save(QuizRequestDTO quizRequestDTO) {
+        Quiz quiz = quizMapper.toEntity(quizRequestDTO);
         quiz.getQuestions().forEach((question) -> {
             question.setId(UUID.randomUUID().toString());
             question.getOptions().forEach(
