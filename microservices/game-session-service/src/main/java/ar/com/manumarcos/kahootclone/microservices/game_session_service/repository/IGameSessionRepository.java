@@ -12,5 +12,5 @@ import java.util.Optional;
 @Repository
 public interface IGameSessionRepository extends MongoRepository<GameSession, String> {
     boolean existsByPinAndStatusNotIn(String pin, List<GameStatus> status);
-    
+    Optional<GameSession> findGameSessionByPinAndStatus(String pin, GameStatus status);
 }

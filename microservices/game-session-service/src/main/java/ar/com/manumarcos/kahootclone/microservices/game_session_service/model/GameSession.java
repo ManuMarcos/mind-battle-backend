@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Document(collection = "game_sessions")
@@ -27,6 +28,7 @@ public class GameSession {
 
     private EmbeddedQuiz quiz;
 
-    private List<EmbeddedPlayerSession> players;
+    @Builder.Default
+    private List<EmbeddedPlayerSession> players =  new ArrayList<>();
 
 }

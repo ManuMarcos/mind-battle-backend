@@ -13,7 +13,6 @@ import java.util.HashMap;
 @RestControllerAdvice
 public class GameSessionExceptionHandler extends GlobalExceptionHandler {
 
-
     @ExceptionHandler(GameSessionNotFound.class)
     public ResponseEntity<ErrorResponse> gameSessionNotFoundHandler(GameSessionNotFound ex){
         var errors = new HashMap<String, String>();
@@ -29,6 +28,5 @@ public class GameSessionExceptionHandler extends GlobalExceptionHandler {
         errors.put(fieldName, ex.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(errors));
     }
-
 
 }

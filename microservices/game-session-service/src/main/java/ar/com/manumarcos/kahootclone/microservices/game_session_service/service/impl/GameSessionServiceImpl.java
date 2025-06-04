@@ -4,21 +4,24 @@ import ar.com.manumarcos.kahootclone.microservices.game_session_service.client.I
 import ar.com.manumarcos.kahootclone.microservices.game_session_service.dto.request.GameSessionRequestDTO;
 import ar.com.manumarcos.kahootclone.microservices.game_session_service.dto.response.GameSessionResponseDTO;
 import ar.com.manumarcos.kahootclone.microservices.game_session_service.exception.GameSessionNotFound;
+import ar.com.manumarcos.kahootclone.microservices.game_session_service.exception.GameSessionPinNotFound;
 import ar.com.manumarcos.kahootclone.microservices.game_session_service.exception.QuizNotFoundException;
 import ar.com.manumarcos.kahootclone.microservices.game_session_service.mapper.gamesession.IGameSessionMapper;
 import ar.com.manumarcos.kahootclone.microservices.game_session_service.mapper.quiz.IQuizMapper;
+import ar.com.manumarcos.kahootclone.microservices.game_session_service.model.EmbeddedPlayerSession;
 import ar.com.manumarcos.kahootclone.microservices.game_session_service.model.EmbeddedQuiz;
 import ar.com.manumarcos.kahootclone.microservices.game_session_service.model.GameSession;
 import ar.com.manumarcos.kahootclone.microservices.game_session_service.model.GameStatus;
 import ar.com.manumarcos.kahootclone.microservices.game_session_service.repository.IGameSessionRepository;
 import ar.com.manumarcos.kahootclone.microservices.game_session_service.service.IGameSessionService;
+import ar.com.manumarcos.kahootclone.microservices.game_session_service.websocket.dto.request.JoinRequestDTO;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
@@ -70,6 +73,23 @@ public class GameSessionServiceImpl implements IGameSessionService {
         }
         else{
             throw new GameSessionNotFound(gameSessionId);
+        }
+    }
+
+    @Override
+    public void joinGameSession(String pin, JoinRequestDTO joinRequestDTO) {
+        Optional<GameSession> gameSessionOpt = gameSessionRepository.findGameSessionByPinAndStatus(pin, GameStatus.CREATED);
+        if(gameSessionOpt.isPresent()){
+            GameSession gameSession = gameSessionOpt.get();
+            EmbeddedPlayerSession playerSession =  EmbeddedPlayerSession.builder()
+                    .username(joinRequestDTO.getUsername())
+                    .score(0)
+                    .build();
+            gameSession.getPlayers().add(playerSession);
+            gameSessionRepository.save(gameSession);
+        }
+        else{
+            throw new GameSessionPinNotFound(pin);
         }
     }
 
