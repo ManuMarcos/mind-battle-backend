@@ -3,11 +3,13 @@ package ar.com.manumarcos.kahootclone.microservices.game_session_service.dto.res
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
 @Builder
-public class EmbeddedQuestionResponseDTO {
+public class QuestionDto {
     private String id;
 
     private String text;
@@ -15,4 +17,6 @@ public class EmbeddedQuestionResponseDTO {
     private int timeLimitSeconds;
 
     private List<EmbeddedOptionResponseDTO> options;
+
+    private Instant questionStartTime;
 }

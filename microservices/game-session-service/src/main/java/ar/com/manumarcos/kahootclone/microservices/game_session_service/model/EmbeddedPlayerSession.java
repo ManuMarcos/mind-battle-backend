@@ -16,6 +16,8 @@ public class EmbeddedPlayerSession {
 
     private int score;
 
+    private String sessionId;
+
     @Builder.Default
     private List<EmbeddedPlayerAnswer> answers = new ArrayList<>();
 }

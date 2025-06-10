@@ -35,7 +35,8 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
     }
 
     private final List<String> openPaths = List.of(
-            "/api/auth/**"
+            "/api/auth/**",
+            "/api/sessions/**"
     );
 
     @Override

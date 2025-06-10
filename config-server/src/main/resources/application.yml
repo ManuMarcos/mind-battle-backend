@@ -8,7 +8,7 @@ spring:
     config:
       server:
         native:
-          search-locations: file:///Users/Shared/OneDrive/Proyectos/kahootclone/config-repo
+          search-locations: file:./config-repo
 
 server:
   port: 8888

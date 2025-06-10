@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 @Builder
-public class PlayerJoinedDTO {
+public class PlayerDTO {
     private String username;
 }

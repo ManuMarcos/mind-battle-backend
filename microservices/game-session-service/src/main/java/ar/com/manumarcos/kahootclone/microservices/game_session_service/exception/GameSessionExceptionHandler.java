@@ -29,4 +29,12 @@ public class GameSessionExceptionHandler extends GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(errors));
     }
 
+    @ExceptionHandler(UserNotFoundInSessionException.class)
+    public ResponseEntity<ErrorResponse> userNotFoundInSessionHandle(UserNotFoundInSessionException ex){
+        var errors = new HashMap<String, String>();
+        var fieldName = "gamesession";
+        errors.put(fieldName, ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(errors));
+    }
+
 }

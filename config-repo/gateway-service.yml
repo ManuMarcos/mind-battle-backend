@@ -20,7 +20,19 @@ spring:
         - id: game-session-service
           uri: lb://game-session-service
           predicates:
-            - Path=/api/game-sessions/**
+            - Path=/api/sessions/**
+      globalcors:
+        cors-configurations:
+          '[/**]' :
+            allowed-origins:
+              - "http://localhost:5173"
+            allowed-methods:
+              - GET
+              - POST
+              - DELETE
+              - PATCH
+            allowed-headers:
+              - "*"
   config:
     import:
       - "shared-config.yml"
