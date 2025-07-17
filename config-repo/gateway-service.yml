@@ -9,30 +9,63 @@ spring:
           uri: lb://auth-service
           predicates:
             - Path=/api/auth/**
+        - id: auth-service-docs
+          uri: lb://auth-service
+          predicates:
+              - Path=/docs/auth-service/**
+          filters:
+            - "RewritePath=/docs/auth-service/(?<path>.*), /\\${path}"
         - id: user-service
           uri: lb://user-service
           predicates:
             - Path=/api/users/**
+        - id: user-service-docs
+          uri: lb://user-service
+          predicates:
+            - Path=/docs/user-service/**
+          filters:
+            - "RewritePath=/docs/user-service/(?<path>.*), /\\${path}"
         - id: quiz-service
           uri: lb://quiz-service
           predicates:
             - Path=/api/quizzes/**
-        - id: game-session-service
+        - id: quiz-service-docs
+          uri: lb://quiz-service
+          predicates:
+            - Path=/docs/quiz-service/**
+          filters:
+            - "RewritePath=/docs/quiz-service/(?<path>.*), /\\${path}"
+        - id: game-session-rest
           uri: lb://game-session-service
           predicates:
             - Path=/api/sessions/**
+        - id: game-session-service-docs
+          uri: lb://game-session-service
+          predicates:
+            - Path=/docs/game-session-service/**
+          filters:
+            - "RewritePath=/docs/game-session-service/(?<path>.*), /\\${path}"
+        - id: game-session-ws
+          uri: lb:ws://game-session-service
+          predicates:
+            - Path=/games-ws/**
       globalcors:
+        add-to-simple-url-handler-mapping: true
         cors-configurations:
-          '[/**]' :
-            allowed-origins:
+          '[/api/**]':
+            allowedOrigins:
               - "http://localhost:5173"
-            allowed-methods:
+            allowedMethods:
               - GET
               - POST
+              - PUT
               - DELETE
-              - PATCH
-            allowed-headers:
+              - OPTIONS
+            allowedHeaders:
               - "*"
+            allowCredentials: true
+
+
   config:
     import:
       - "shared-config.yml"
@@ -42,3 +75,19 @@ eureka:
     service-url:
       defaultZone: http://localhost:8761/eureka
 
+springdoc:
+  api-docs:
+    enabled: true
+    path: /v3/api-docs
+  swagger-ui:
+    enabled: true
+    config-url: /v3/api-docs/swagger-config
+    urls:
+      - name: user-service
+        url: /docs/user-service/v3/api-docs
+      - name: auth-service
+        url: /docs/auth-service/v3/api-docs
+      - name: quiz-service
+        url: /docs/quiz-service/v3/api-docs
+      - name: game-session-service
+        url: /docs/game-session-service/v3/api-docs

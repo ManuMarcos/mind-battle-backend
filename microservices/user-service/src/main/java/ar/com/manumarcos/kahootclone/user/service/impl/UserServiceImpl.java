@@ -9,30 +9,27 @@ import ar.com.manumarcos.kahootclone.user.repository.IUserRepository;
 import ar.com.manumarcos.kahootclone.user.service.IUserService;
 import ar.com.manumarcos.microservices.commons.dto.user.UserInternalResponseDTO;
 import ar.com.manumarcos.microservices.commons.dto.user.UserResponseDTO;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements IUserService {
 
     private final IUserRepository IUserRepository;
     private final UserMapper userMapper;
 
-    public UserServiceImpl(IUserRepository IUserRepository, UserMapper userMapper) {
-        this.IUserRepository = IUserRepository;
-        this.userMapper = userMapper;
-    }
-
     @Override
-    public UserResponseDTO save(UserRequestDTO userRequestDTO) {
+    public UserInternalResponseDTO save(UserRequestDTO userRequestDTO) {
         if(IUserRepository.existsByUsername(userRequestDTO.getUsername())){
             throw new UsernameAlreadyExists(userRequestDTO.getUsername());
         }
         User user = userMapper.toEntity(userRequestDTO);
         System.out.println(user.toString());
-        return userMapper.toDto(IUserRepository.save(user));
+        return userMapper.toInternalDTO(IUserRepository.save(user));
     }
 
     @Override

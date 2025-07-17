@@ -9,5 +9,5 @@ public class QuestionDTO {
     private String id;
     private String text;
     private int timeLimitSeconds;
-    private List<OptionDTO> options;
+    private List<OptionRequestDTO> options;
 }

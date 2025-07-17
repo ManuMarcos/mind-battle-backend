@@ -10,13 +10,9 @@ import java.util.List;
 @Builder
 public class EmbeddedPlayerSession {
 
-    private String userId;
-
     private String username;
 
     private int score;
-
-    private String sessionId;
 
     @Builder.Default
     private List<EmbeddedPlayerAnswer> answers = new ArrayList<>();

@@ -8,5 +8,7 @@ public class EmbeddedOption {
 
     private String text;
 
+    private int order;
+
     private boolean isCorrect;
 }

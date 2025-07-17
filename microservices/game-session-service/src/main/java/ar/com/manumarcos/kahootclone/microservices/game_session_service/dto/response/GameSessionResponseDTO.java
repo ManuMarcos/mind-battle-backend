@@ -17,6 +17,8 @@ public class GameSessionResponseDTO {
 
     private GameStatus status;
 
+    private String createdBy;
+
     private int currentQuestionIndex;
 
     private LocalDateTime questionStartTime;

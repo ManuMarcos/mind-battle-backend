@@ -22,6 +22,8 @@ public class GameSession {
 
     private GameStatus status;
 
+    private String createdBy;
+
     private int currentQuestionIndex;
 
     private LocalDateTime questionStartTime;

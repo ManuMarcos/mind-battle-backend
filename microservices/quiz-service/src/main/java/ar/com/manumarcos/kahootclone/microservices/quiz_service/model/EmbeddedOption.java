@@ -10,4 +10,6 @@ public class EmbeddedOption {
     private String text;
 
     private boolean isCorrect;
+
+    private int order;
 }

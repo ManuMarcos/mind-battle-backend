@@ -1,5 +1,6 @@
 package com.manumarcos.springcloud.authservice.model;
 
+import ar.com.manumarcos.microservices.commons.dto.user.UserInternalResponseDTO;
 import com.manumarcos.springcloud.authservice.dto.UserResponseDTO;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -14,11 +15,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CustomUserDetails implements UserDetails {
 
-    private final UserResponseDTO userReponseDTO;
+    private final UserInternalResponseDTO userReponseDTO;
+
+    public String getId(){
+        return userReponseDTO.getId();
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_" + userReponseDTO.getRole()));
+        return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"));
     }
 
     @Override

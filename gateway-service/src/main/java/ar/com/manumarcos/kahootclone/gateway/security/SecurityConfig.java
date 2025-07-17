@@ -13,7 +13,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 
 @Configuration
-@EnableWebFluxSecurity
 public class SecurityConfig {
 
     @PostConstruct
@@ -26,8 +25,14 @@ public class SecurityConfig {
         http
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .authorizeExchange(exchange -> exchange
-                        .anyExchange().permitAll()
-                );
+                        .pathMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .pathMatchers(HttpMethod.POST, "/api/sessions/*/start").authenticated()
+                        .pathMatchers(HttpMethod.POST, "/api/quizzes/**").authenticated()
+                        .pathMatchers("/api/auth/**", "/games-ws/**", "/api/sessions/**").permitAll()
+                        .pathMatchers("/v3/api-docs/**","/docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
+                        .anyExchange().authenticated())
+                .oauth2ResourceServer(oauth ->
+                        oauth.jwt(Customizer.withDefaults()));
         return http.build();
     }
 }

@@ -1,9 +1,11 @@
 package ar.com.manumarcos.kahootclone.user.controller;
 
+import ar.com.manumarcos.kahootclone.user.controller.swagger.IUserControllerSwagger;
 import ar.com.manumarcos.kahootclone.user.dto.request.UserRequestDTO;
 import ar.com.manumarcos.kahootclone.user.service.IUserService;
 import ar.com.manumarcos.microservices.commons.dto.user.UserInternalResponseDTO;
 import ar.com.manumarcos.microservices.commons.dto.user.UserResponseDTO;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,16 +13,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
-public class UserController {
+@RequiredArgsConstructor
+public class UserController implements IUserControllerSwagger {
 
     private final IUserService userService;
 
-    public UserController(IUserService IUserService){
-        this.userService = IUserService;
-    }
-
     @PostMapping
-    public ResponseEntity<UserResponseDTO> save(@RequestBody UserRequestDTO userRequestDTO){
+    public ResponseEntity<UserInternalResponseDTO> save(@RequestBody UserRequestDTO userRequestDTO){
         System.out.println(userRequestDTO);
         return ResponseEntity.ok(userService.save(userRequestDTO));
     }

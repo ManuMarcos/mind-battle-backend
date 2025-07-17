@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface IUserService {
 
-    UserResponseDTO save(UserRequestDTO userRequestDTO);
+    UserInternalResponseDTO save(UserRequestDTO userRequestDTO);
     List<UserResponseDTO> findAll();
     UserInternalResponseDTO getByUsername(String username);
 }

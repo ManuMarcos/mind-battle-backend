@@ -10,5 +10,7 @@ public class EmbeddedOptionResponseDTO {
 
     private String text;
 
+    private int order;
+
     private boolean isCorrect;
 }

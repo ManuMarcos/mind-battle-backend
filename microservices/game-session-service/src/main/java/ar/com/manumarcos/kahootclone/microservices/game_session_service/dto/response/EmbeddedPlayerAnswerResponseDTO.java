@@ -10,5 +10,5 @@ public class EmbeddedPlayerAnswerResponseDTO {
 
     private String text;
 
-    private List<EmbeddedOptionResponseDTO> selectedOptions;
+    private EmbeddedOptionResponseDTO selectedOption;
 }

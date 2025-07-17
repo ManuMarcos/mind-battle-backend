@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
-@Data
+@Getter @Setter
 public class UserRequestDTO {
 
     @NotBlank(message = "El email es obligatorio")

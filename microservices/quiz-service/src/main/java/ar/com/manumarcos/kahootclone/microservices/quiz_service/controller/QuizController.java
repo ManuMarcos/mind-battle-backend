@@ -1,6 +1,7 @@
 package ar.com.manumarcos.kahootclone.microservices.quiz_service.controller;
 
 
+import ar.com.manumarcos.kahootclone.microservices.quiz_service.controller.swagger.IQuizControllerSwagger;
 import ar.com.manumarcos.kahootclone.microservices.quiz_service.dto.request.QuizRequestDTO;
 import ar.com.manumarcos.kahootclone.microservices.quiz_service.service.IQuizService;
 import ar.com.manumarcos.microservices.commons.dto.quiz.QuizResponseDTO;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/quizzes")
 @RequiredArgsConstructor
-public class QuizController {
+public class QuizController implements IQuizControllerSwagger {
 
     private final IQuizService quizService;
 

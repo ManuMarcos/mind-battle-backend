@@ -1,5 +1,6 @@
 package com.manumarcos.springcloud.authservice.service.impl;
 
+import ar.com.manumarcos.microservices.commons.dto.user.UserInternalResponseDTO;
 import com.manumarcos.springcloud.authservice.client.IUserClient;
 import com.manumarcos.springcloud.authservice.dto.UserResponseDTO;
 import com.manumarcos.springcloud.authservice.model.CustomUserDetails;
@@ -21,7 +22,7 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserResponseDTO user = userClient.getUserByUsername(username);
+        UserInternalResponseDTO user = userClient.getUserByUsername(username);
         return new CustomUserDetails(user);
     }
 }

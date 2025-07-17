@@ -5,6 +5,13 @@ spring:
   data:
     mongodb:
       uri: mongodb://root:pass@localhost:27017/game-session-db?authSource=admin
+  rabbitmq:
+    username: root
+    password: pass
+  config:
+    import:
+      - "shared-config.yml"
+
 
 eureka:
   client:

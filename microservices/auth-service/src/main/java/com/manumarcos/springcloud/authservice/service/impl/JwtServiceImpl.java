@@ -1,5 +1,6 @@
 package com.manumarcos.springcloud.authservice.service.impl;
 
+import com.manumarcos.springcloud.authservice.model.CustomUserDetails;
 import com.manumarcos.springcloud.authservice.service.IJwtService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -46,11 +47,12 @@ public class JwtServiceImpl implements IJwtService {
     }
 
     private String getToken(Map<String, Object> extraClaims, UserDetails user){
+        CustomUserDetails custUser = (CustomUserDetails) user;
         return Jwts.builder()
                 .setClaims(extraClaims)
-                .setSubject(user.getUsername())
+                .setSubject(custUser.getId())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
+                .setExpiration(new Date(System.currentTimeMillis() + 10000 * 60 * 24))
                 .signWith(this.getKey(), SignatureAlgorithm.HS256)
                 .compact();
     }

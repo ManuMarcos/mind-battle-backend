@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 @RequiredArgsConstructor
@@ -39,9 +40,13 @@ public class QuizServiceImpl implements IQuizService {
     public void save(QuizRequestDTO quizRequestDTO) {
         Quiz quiz = quizMapper.toEntity(quizRequestDTO);
         quiz.getQuestions().forEach((question) -> {
+            AtomicInteger index = new AtomicInteger();
             question.setId(UUID.randomUUID().toString());
             question.getOptions().forEach(
-                    (option) -> option.setId(UUID.randomUUID().toString())
+                    (option) -> {
+                        option.setId(UUID.randomUUID().toString());
+                        option.setOrder(index.getAndIncrement());
+                    }
             );
         });
         quizRepository.save(quiz);

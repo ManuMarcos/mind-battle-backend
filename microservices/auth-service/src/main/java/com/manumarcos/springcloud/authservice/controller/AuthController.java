@@ -1,6 +1,7 @@
 package com.manumarcos.springcloud.authservice.controller;
 
 
+import com.manumarcos.springcloud.authservice.controller.swagger.IAuthControllerSwagger;
 import com.manumarcos.springcloud.authservice.dto.AuthResponseDTO;
 import com.manumarcos.springcloud.authservice.dto.LoginRequestDTO;
 import com.manumarcos.springcloud.authservice.dto.RegisterRequestDTO;
@@ -16,13 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/auth")
-public class AuthController {
+public class AuthController implements IAuthControllerSwagger {
 
     private final IAuthService authService;
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponseDTO> login(@RequestBody LoginRequestDTO loginRequestDTO){
-        System.out.println("Hola");
         return ResponseEntity.ok(authService.login(loginRequestDTO));
     }
 

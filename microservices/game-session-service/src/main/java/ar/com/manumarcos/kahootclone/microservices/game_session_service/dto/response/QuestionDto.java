@@ -19,4 +19,6 @@ public class QuestionDto {
     private List<EmbeddedOptionResponseDTO> options;
 
     private Instant questionStartTime;
+
+    private boolean hasNext;
 }

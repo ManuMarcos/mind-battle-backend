@@ -1,11 +1,13 @@
 package ar.com.manumarcos.microservices.commons.exception;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.context.request.WebRequest;
 
 import java.util.HashMap;
 
@@ -14,24 +16,28 @@ import java.util.HashMap;
 public class GlobalExceptionHandler {
     
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleException(Exception exception){
-        var errors = new HashMap<String, String>();
-        var fieldName = "message";
-        var errorMessage = "Se ha producido un error. Por favor, contactate con el administrador o intente mas tarde";
-        errors.put(fieldName, errorMessage);
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse(errors));
+    public ResponseEntity<ErrorResponse> handleException(Exception exception, HttpServletRequest request){
+        String path = request.getRequestURI();
+        ErrorResponse errorResponse = new ErrorResponse(
+                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(),
+                exception.getMessage(),
+                path
+        );
+        return ResponseEntity.internalServerError().body(errorResponse);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorResponse> handleException(MethodArgumentNotValidException exception){
-        var errors = new HashMap<String, String>();
-        exception.getBindingResult().getFieldErrors().forEach(error -> {
-            var fieldName =  error.getField();
-            var errorMessage = error.getDefaultMessage();
-            errors.put(fieldName, errorMessage);
-        });
-
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(errors));
+    public ResponseEntity<ErrorResponse> handleException(MethodArgumentNotValidException exception,
+                                                         HttpServletRequest request){
+        String path = request.getRequestURI();
+        ErrorResponse errorResponse = new ErrorResponse(
+                HttpStatus.BAD_REQUEST.value(),
+                HttpStatus.BAD_GATEWAY.getReasonPhrase(),
+                exception.getMessage(),
+                path
+        );
+        return ResponseEntity.badRequest().body(errorResponse);
     }
 
 
