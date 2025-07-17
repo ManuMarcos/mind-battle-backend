@@ -6,9 +6,9 @@ import ar.com.manumarcos.kahootclone.microservices.game_session_service.dto.requ
 import ar.com.manumarcos.kahootclone.microservices.game_session_service.dto.request.SessionPlayerIdRequest;
 import ar.com.manumarcos.kahootclone.microservices.game_session_service.dto.response.GameSessionResponseDTO;
 import ar.com.manumarcos.kahootclone.microservices.game_session_service.dto.response.QuestionDto;
-import ar.com.manumarcos.kahootclone.microservices.game_session_service.dto.ws.AnswerStatsResponseDTO;
+import ar.com.manumarcos.kahootclone.microservices.game_session_service.dto.websocket.AnswerStatsResponseDTO;
 import ar.com.manumarcos.kahootclone.microservices.game_session_service.service.IGameSessionService;
-import ar.com.manumarcos.kahootclone.microservices.game_session_service.service.IWebSocketNotificationService;
+import ar.com.manumarcos.kahootclone.microservices.game_session_service.service.websocket.IGameSessionWsPublisher;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -26,7 +26,7 @@ import java.util.List;
 public class GameSessionController implements IGameSessionControllerSwagger {
 
     private final IGameSessionService gameSessionService;
-    private final IWebSocketNotificationService webSocketNotificationService;
+    private final IGameSessionWsPublisher webSocketNotificationService;
 
     @GetMapping
     public ResponseEntity<Page<GameSessionResponseDTO>> findAll(Pageable pageable) {
@@ -51,7 +51,7 @@ public class GameSessionController implements IGameSessionControllerSwagger {
                                             @RequestHeader("X-User-Id") String userId) {
         log.info("UserId:{}", userId);
         QuestionDto question = gameSessionService.start(gameSessionId, userId);
-        webSocketNotificationService.notifySessionStarted(gameSessionId, question);
+        webSocketNotificationService.publishSessionStarted(gameSessionId, question);
         return ResponseEntity.ok("Game started successfully");
     }
 
@@ -71,7 +71,7 @@ public class GameSessionController implements IGameSessionControllerSwagger {
                                              @RequestHeader("X-User-Id") String userId)
     {
         QuestionDto question = gameSessionService.nextQuestion(gameSessionId, userId);
-        webSocketNotificationService.notifyNextQuestion(gameSessionId, question);
+        webSocketNotificationService.publishNextQuestion(gameSessionId, question);
         return ResponseEntity.ok().build();
     }
 

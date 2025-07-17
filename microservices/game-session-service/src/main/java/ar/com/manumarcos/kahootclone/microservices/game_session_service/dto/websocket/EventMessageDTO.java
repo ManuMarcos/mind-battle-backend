@@ -1,4 +1,4 @@
-package ar.com.manumarcos.kahootclone.microservices.game_session_service.dto.ws;
+package ar.com.manumarcos.kahootclone.microservices.game_session_service.dto.websocket;
 
 import ar.com.manumarcos.kahootclone.microservices.game_session_service.model.EventType;
 import lombok.AllArgsConstructor;

@@ -1,7 +1,7 @@
 package ar.com.manumarcos.kahootclone.microservices.game_session_service.controller;
 
 import ar.com.manumarcos.kahootclone.microservices.game_session_service.exception.GameSessionPinNotFound;
-import ar.com.manumarcos.kahootclone.microservices.game_session_service.dto.ws.ErrorResponseDTO;
+import ar.com.manumarcos.kahootclone.microservices.game_session_service.dto.websocket.ErrorResponseDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
 import org.springframework.messaging.simp.annotation.SendToUser;

@@ -1,6 +1,6 @@
 package ar.com.manumarcos.kahootclone.microservices.game_session_service.repository.impl;
 
-import ar.com.manumarcos.kahootclone.microservices.game_session_service.dto.ws.AnswerStatsResponseDTO;
+import ar.com.manumarcos.kahootclone.microservices.game_session_service.dto.websocket.AnswerStatsResponseDTO;
 import ar.com.manumarcos.kahootclone.microservices.game_session_service.repository.GameSessionCustRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.core.MongoTemplate;

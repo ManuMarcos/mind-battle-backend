@@ -1,13 +1,11 @@
-package ar.com.manumarcos.kahootclone.microservices.game_session_service.controller;
+package ar.com.manumarcos.kahootclone.microservices.game_session_service.controller.websocket;
 
 import ar.com.manumarcos.kahootclone.microservices.game_session_service.dto.request.AnswerRequestDTO;
 import ar.com.manumarcos.kahootclone.microservices.game_session_service.dto.request.JoinRequestDTO;
 import ar.com.manumarcos.kahootclone.microservices.game_session_service.service.IGameSessionService;
-import ar.com.manumarcos.kahootclone.microservices.game_session_service.dto.ws.AnswerReceivedResponseDTO;
-import ar.com.manumarcos.kahootclone.microservices.game_session_service.dto.ws.EventMessageDTO;
-import ar.com.manumarcos.kahootclone.microservices.game_session_service.dto.ws.PlayerDTO;
-import ar.com.manumarcos.kahootclone.microservices.game_session_service.model.EventType;
-import ar.com.manumarcos.kahootclone.microservices.game_session_service.service.IWebSocketNotificationService;
+import ar.com.manumarcos.kahootclone.microservices.game_session_service.dto.websocket.AnswerReceivedResponseDTO;
+import ar.com.manumarcos.kahootclone.microservices.game_session_service.dto.websocket.PlayerDTO;
+import ar.com.manumarcos.kahootclone.microservices.game_session_service.service.websocket.IGameSessionWsPublisher;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
@@ -20,11 +18,11 @@ import org.springframework.stereotype.Controller;
 @Controller
 @RequiredArgsConstructor
 @Slf4j
-public class GameSessionWebSocketController {
+public class GameSessionWsController {
 
     private final IGameSessionService gameSessionService;
     private final SimpMessagingTemplate messagingTemplate;
-    private final IWebSocketNotificationService notificationService;
+    private final IGameSessionWsPublisher notificationService;
 
     @MessageMapping("/session/{gameSessionId}/join")
     public void handleJoinRequest(@Payload JoinRequestDTO joinRequestDTO, @DestinationVariable String gameSessionId,
@@ -36,7 +34,7 @@ public class GameSessionWebSocketController {
                 .builder()
                 .username(joinRequestDTO.getUsername())
                 .build();
-        notificationService.notifyPlayerJoined(gameSessionId, player);
+        notificationService.publishPlayerJoined(gameSessionId, player);
     }
 
     @MessageMapping("/session/{gameSessionId}/answer")
@@ -47,7 +45,7 @@ public class GameSessionWebSocketController {
                 .builder()
                 .currentCount(numberOfAnswers)
                 .build();
-        notificationService.notifyAnswerReceived(gameSessionId, answerReceived);
+        notificationService.publishAnswerReceived(gameSessionId, answerReceived);
     }
 
 }

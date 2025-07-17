@@ -14,7 +14,7 @@ import ar.com.manumarcos.kahootclone.microservices.game_session_service.mapper.q
 import ar.com.manumarcos.kahootclone.microservices.game_session_service.model.*;
 import ar.com.manumarcos.kahootclone.microservices.game_session_service.repository.GameSessionRepository;
 import ar.com.manumarcos.kahootclone.microservices.game_session_service.service.IGameSessionService;
-import ar.com.manumarcos.kahootclone.microservices.game_session_service.dto.ws.AnswerStatsResponseDTO;
+import ar.com.manumarcos.kahootclone.microservices.game_session_service.dto.websocket.AnswerStatsResponseDTO;
 import ar.com.manumarcos.kahootclone.microservices.game_session_service.repository.WebSocketSessionRegistry;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;

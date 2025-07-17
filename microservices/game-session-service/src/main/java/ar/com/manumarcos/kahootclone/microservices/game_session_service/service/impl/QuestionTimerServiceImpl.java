@@ -1,7 +1,7 @@
 package ar.com.manumarcos.kahootclone.microservices.game_session_service.service.impl;
 
 
-import ar.com.manumarcos.kahootclone.microservices.game_session_service.dto.ws.AnswerStatsResponseDTO;
+import ar.com.manumarcos.kahootclone.microservices.game_session_service.dto.websocket.AnswerStatsResponseDTO;
 import ar.com.manumarcos.kahootclone.microservices.game_session_service.service.IQuestionTimerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

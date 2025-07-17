@@ -6,7 +6,7 @@ import ar.com.manumarcos.kahootclone.microservices.game_session_service.dto.requ
 import ar.com.manumarcos.kahootclone.microservices.game_session_service.dto.request.SessionPlayerIdRequest;
 import ar.com.manumarcos.kahootclone.microservices.game_session_service.dto.response.GameSessionResponseDTO;
 import ar.com.manumarcos.kahootclone.microservices.game_session_service.dto.response.QuestionDto;
-import ar.com.manumarcos.kahootclone.microservices.game_session_service.dto.ws.AnswerStatsResponseDTO;
+import ar.com.manumarcos.kahootclone.microservices.game_session_service.dto.websocket.AnswerStatsResponseDTO;
 import ar.com.manumarcos.kahootclone.microservices.game_session_service.model.SessionInfo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

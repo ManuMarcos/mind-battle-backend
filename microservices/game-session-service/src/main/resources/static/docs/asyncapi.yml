@@ -1,0 +1,242 @@
+asyncapi: "3.0.0"
+info:
+  title: "Mind Battle - Game Session WebSocket"
+  version: '1.0.0'
+  description: WebSocket para gestionar las partidas multijugador de Mind Battle en tiempo real
+
+servers:
+  local:
+    host: localhost:8082
+    pathname: /ws
+    protocol: ws
+    description: Microservicio que expone un websocket en desarrollo
+
+channels:
+  session-topic:
+    address: /topic/session.{gameSessionId}
+    description: Canal donde se publican los eventos de la sesión
+    parameters:
+      gameSessionId:
+        description: El id de la sesión
+    messages:
+      gameStarted:
+        $ref: '#/components/messages/gameStarted'
+      nextQuestion:
+        $ref: '#/components/messages/nextQuestion'
+      playerJoined:
+        $ref: '#/components/messages/playerJoined'
+      answerReceived:
+        $ref: '#/components/messages/answerReceived'
+      questionEnd:
+        $ref: '#/components/messages/questionEnd'
+      playerLeft:
+        $ref: '#/components/messages/playerLeft'
+  session-join:
+    address: /app/session.{gameSessionId}/join
+    description: Canal para que un jugador se una a una sesión
+    parameters:
+      gameSessionId:
+        description: El id de la sesión
+    messages:
+      joinRequest:
+        $ref : '#/components/messages/joinSession'
+  session-answer:
+    address: /app/session.{gameSessionId}/answer
+    description: Canal para que un jugador envie una respuesta
+    parameters:
+      gameSessionId:
+        description: El id de la sesión
+    messages:
+      answerRequest:
+        $ref: '#/components/messages/submitAnswer'
+
+
+operations:
+  publishGameStarted:
+    action: send
+    channel:
+      $ref: '#/channels/session-topic'
+    messages:
+      - $ref: '#/channels/session-topic/messages/gameStarted'
+  publishSessionStarted:
+    action: send
+    channel:
+      $ref: '#/channels/session-topic'
+    messages:
+      - $ref: '#/channels/session-topic/messages/nextQuestion'
+  publishPlayerJoined:
+    action: send
+    channel:
+      $ref: '#/channels/session-topic'
+    messages:
+      - $ref: '#/channels/session-topic/messages/playerJoined'
+  publishAnswerReceived:
+    action: send
+    channel:
+      $ref: '#/channels/session-topic'
+    messages:
+      - $ref: '#/channels/session-topic/messages/answerReceived'
+  publishQuestionEnd:
+    action: send
+    channel:
+      $ref: '#/channels/session-topic'
+    messages:
+      - $ref: '#/channels/session-topic/messages/questionEnd'
+  publishPlayerLeft:
+    action: send
+    channel:
+      $ref: '#/channels/session-topic'
+    messages:
+      - $ref: '#/channels/session-topic/messages/playerLeft'
+  joinSession:
+    action: receive
+    channel:
+      $ref: '#/channels/session-join'
+    messages:
+      - $ref: '#/channels/session-join/messages/joinRequest'
+  submitAnswer:
+    action: receive
+    channel:
+      $ref: '#/channels/session-answer'
+    messages:
+      - $ref: '#/channels/session-answer/messages/answerRequest'
+
+
+
+
+components:
+  messages:
+    gameStarted:
+      summary: Mensaje emitido cuando inicia el juego
+      name: GameStarted
+      title: Mensaje de inicio de partida
+      contentType: application/json
+      payload:
+        type: object
+        properties:
+          eventType:
+            type: string
+            example: GAME_STARTED
+          payload:
+            $ref: '#/components/schemas/QuestionDTO'
+    nextQuestion:
+      summary: Mensaje emitido cuando se pasa a la siguiente pregunta
+      name: NextQuestion
+      title: Mensaje de siguiente pregunta
+      contentType: application/json
+      payload:
+        type: object
+        properties:
+          eventType:
+            type: string
+            example: NEXT_QUESTION
+          payload:
+            $ref: '#/components/schemas/QuestionDTO'
+    playerJoined:
+      summary: Mensaje emitido cuando se une un jugador a la partida
+      name: PlayerJoined
+      title: Mensaje de unión a la partida
+      contentType: application/json
+      payload:
+        type: object
+        properties:
+          eventType:
+            type: string
+            example: PLAYER_JOINED
+          payload:
+            $ref: '#/components/schemas/PlayerDTO'
+    answerReceived:
+      summary: Mensaje emitido cuando se recibe una respuesta
+      name: AnswerReceived
+      title: Mensaje de respuesta respondida
+      contentType: application/json
+      payload:
+        type: object
+        properties:
+          eventType:
+            type: string
+            example: ANSWER_RECEIVED
+          payload:
+            $ref: '#/components/schemas/AnswerReceivedResponseDTO'
+    questionEnd:
+      summary: Mensaje emitido cuando finaliza la pregunta
+      name: QuestionEnd
+      title: Mensaje de finalización de la pregunta
+      contentType: application/json
+      payload:
+        type: object
+        properties:
+          eventType:
+            type: string
+            example: QUESTION_END
+          questionId:
+            type: string
+    playerLeft:
+      summary: Se envía cuando un jugador sale de la partida
+      name: PlayerLeft
+      title: Mensaje de abandono de partida
+      contentType: application/json
+      payload:
+        type: object
+        properties:
+          eventType:
+            type: string
+            example: PLAYER_LEFT
+          payload:
+            $ref: '#/components/schemas/PlayerDTO'
+    joinSession:
+      title: Mensaje de unión a la partida
+      summary: Se envía cuando un jugador intenta unirse a una partida
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/JoinRequestDTO'
+    submitAnswer:
+      title: Mensaje con la respuesta del jugador
+      summary: Se envia cuando un jugador responde una pregunta
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/AnswerRequestDTO'
+
+
+
+  schemas:
+    QuestionDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        questionText:
+          type: string
+        timeLimitSeconds:
+          type: integer
+        options:
+          type: array
+          items:
+            type: string
+    PlayerDTO:
+      type: object
+      properties:
+        username:
+          type: string
+    AnswerReceivedResponseDTO:
+      type: object
+      properties:
+        currentCount:
+          type: number
+    JoinRequestDTO:
+      type: object
+      properties:
+        username:
+          type: string
+    AnswerRequestDTO:
+      type: object
+      properties:
+        username:
+          type: string
+        questionId:
+          type: string
+        selectedOptionId:
+          type: string
+
+
+
