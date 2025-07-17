@@ -1,0 +1,12 @@
+{
+  "name": "game-session-service",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "generate:asyncapi": "asyncapi generate fromTemplate src/main/resources/static/docs/asyncapi.yml @asyncapi/html-template@3.0.0 -o src/main/resources/static/docs/asyncapi --force-write --use-new-generator"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

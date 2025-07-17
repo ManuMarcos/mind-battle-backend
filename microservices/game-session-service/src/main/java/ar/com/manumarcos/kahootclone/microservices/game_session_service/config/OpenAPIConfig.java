@@ -1,5 +1,6 @@
 package ar.com.manumarcos.kahootclone.microservices.game_session_service.config;
 
+import io.swagger.v3.oas.models.ExternalDocumentation;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
@@ -30,8 +31,11 @@ public class OpenAPIConfig {
                         "jugadores")
                 .contact(contact)
                 .license(license);
+        ExternalDocumentation externalDocumentation = new ExternalDocumentation()
+                .description("Documentación del WebSocket (AsyncAPI)")
+                .url("/docs/asyncapi/index.html");
 
-        return new OpenAPI().info(info);
+        return new OpenAPI().info(info).externalDocs(externalDocumentation);
 
     }
 }
