@@ -6,6 +6,12 @@ spring:
     mongodb:
       uri: mongodb://root:pass@localhost:27017/quiz-db?authSource=admin
       auto-index-creation: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          public-key-location: file:.secrets/public.pem
+
 
 eureka:
   client:

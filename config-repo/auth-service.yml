@@ -16,3 +16,7 @@ spring:
   config:
     import:
       - "shared-config.yml"
+
+jwt:
+  private-key-path: .secrets/private.pem
+  public-key-path: .secrets/public.pem

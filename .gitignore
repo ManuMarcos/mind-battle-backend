@@ -48,3 +48,6 @@ spring.log
 # Other
 *.bak
 *.tmp
+
+# Secrets
+.secrets/
